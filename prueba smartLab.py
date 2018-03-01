@@ -2,13 +2,13 @@
 from PIL import Image, ImageDraw, ImageFont
 
 #Insert your access token obtained from Graph API explorer here
-TOKEN='EAAE3nyZCkZBS0BAAunHtMQK6TFdSct2ZCtsfIAixn9QZAiMfxMYRhZChre6vAEZCDcOjZCkH5etZBix25fnFutscjkAqFnwQJ8hgN3nNiKjJaoZBYvaHw9gnhfohfaK9LntaNPS2abJVPvkCcvCLtdNVd3j9uFFz1QaZASKOzij5QNNvhShnkhWocnfeJoni4np5kZD' 
+TOKEN='EAAE3nyZCkZBS0BADghixcHvasHswvpA95guBOMfTG8SoqemCA6Wn8aLxYCJNJCvorFuypsvdxfdFMkeszZCQiYrZAvo62RjCvN7ClLpakld5Wos8bZB4Ai5N2J7jUSxhn9HBnbJyu90gFtkBSJjpMQxFSiNDaQaacq1m0SNkfhaWEa0iOQVZAJhRx4f8CYZA98ZD' 
 
 # Insert your cookie string here
-COOKIE='datr=WOy-WfHNoH9xZxDWb_h499W7; sb=WOy-WR642QFFfyPxCRfeOoEr; c_user=100001064064854; xs=4%3A1o7U2CQ11BTGDw%3A2%3A1505687159%3A13666%3A11901; ; fr=0xS2BKjrtVCbuVmjp.AWXqF9Rw-FKwH9xap_-sQHtS6ew.BZvuxY.I8.FqV.0.0.Balbnt.; act=1519765291621%2F2; wd=575x662; presence=EDvF3EtimeF1519765314EuserFA21B01064064854A2EstateFDt3F_5b_5dG519765314354CEchFDp_5f1B01064064854F14CC'
+COOKIE='datr=WOy-WfHNoH9xZxDWb_h499W7; sb=WOy-WR642QFFfyPxCRfeOoEr; ; locale=es_LA; c_user=100001064064854; xs=37%3AKZeQpHc9CQwHGw%3A2%3A1519939628%3A13666%3A11901; fr=0xS2BKjrtVCbuVmjp.AWWcd0XkFXPl0iyyaF3fD4ZI2K4.BZvuxY.I8.FqV.0.0.BamHAs.AWWiGoqJ; pl=n; presence=EDvF3EtimeF1519939640EuserFA21B01064064854A2EstateFDutF1519939640953CEchFDp_5f1B01064064854F2CC; act=1519939693689%2F2; wd=871x662'
 
 # Insert the fb_dtsg parameter obtained from Form Data here.
-FB_DTSG='AQF3FM3TklNW:AQF_ijFzbZww'
+FB_DTSG='AQHAOAJZ5Lor:AQGJ2qbYJkjZ'
 
 # Insert your image file path here    
 photo='holis.jpg'
