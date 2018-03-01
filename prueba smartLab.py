@@ -47,11 +47,8 @@ def wrapper(photo,access_token,cookie,fb_dtsg):
         if name:
             print('name: '+name[0]['user']['name'])
             posx=face['x']*w/100        
-            posy=face['y']*h/100
-            size=face['width']*face['height']
-            plt.text(posx,posy,name[0]['user']['name'])
-            draw.text((posx,posy),name[0]['user']['name'],fill='blue',font=font)
-            plt.scatter(posx, posy, s=np.pi*size, c='white', alpha=0.30) #transparencia del 0.10 (1 es opaco y 0 es transparente)
+            posy=face['y']*h/100            
+            draw.text((posx,posy),name[0]['user']['name'],fill='blue',font=font)            
             draw.rectangle(((posx+(face['width']*w/100)/2,posy+(face['height']*h/100)/2),(posx-(face['width']*w/100)/2,posy-(face['height']*w/100)/2)),fill=None,outline='red')
 
     plt.imshow(background)
