@@ -42,6 +42,3 @@ print(recog.recognize(path2))
 pprint(recog.recognize_raw(path), indent=2)
 
 ```
-## Please star this repo if it helped :)
-
-![star](http://i.imgur.com/Uhx7FOA.png)
