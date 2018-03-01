@@ -1,6 +1,4 @@
-#Para dibujr circulos sobre las caras
-import matplotlib.pyplot as plt
-import numpy as np
+#Para dibujar rectangulos y nombres sobre las caras
 from PIL import Image, ImageDraw, ImageFont
 
 #Para reconocimiento facial
