@@ -11,7 +11,7 @@ COOKIE='datr=WOy-WfHNoH9xZxDWb_h499W7; sb=WOy-WR642QFFfyPxCRfeOoEr; ; locale=es_
 FB_DTSG='AQHAOAJZ5Lor:AQGJ2qbYJkjZ'
 
 # Insert your image file path here    
-photo='holis.jpg'
+photo='amigos.jpg'
 
 #Open the image
 img=Image.open(photo)
@@ -43,7 +43,7 @@ result=[]
 for face in faces:
     name=face['recognitions']    
     if name:
-        print('name: '+name[0]['user']['name'])
+        #print('name: '+name[0]['user']['name'])
         posx=face['x']*w/100        
         posy=face['y']*h/100
         size=face['width']*face['height']        
