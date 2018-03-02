@@ -2,16 +2,16 @@
 from PIL import Image, ImageDraw, ImageFont
 
 #Insert your access token obtained from Graph API explorer here
-TOKEN='EAAE3nyZCkZBS0BADghixcHvasHswvpA95guBOMfTG8SoqemCA6Wn8aLxYCJNJCvorFuypsvdxfdFMkeszZCQiYrZAvo62RjCvN7ClLpakld5Wos8bZB4Ai5N2J7jUSxhn9HBnbJyu90gFtkBSJjpMQxFSiNDaQaacq1m0SNkfhaWEa0iOQVZAJhRx4f8CYZA98ZD' 
+TOKEN='xxxx' 
 
 # Insert your cookie string here
-COOKIE='datr=WOy-WfHNoH9xZxDWb_h499W7; sb=WOy-WR642QFFfyPxCRfeOoEr; ; locale=es_LA; c_user=100001064064854; xs=37%3AKZeQpHc9CQwHGw%3A2%3A1519939628%3A13666%3A11901; fr=0xS2BKjrtVCbuVmjp.AWWcd0XkFXPl0iyyaF3fD4ZI2K4.BZvuxY.I8.FqV.0.0.BamHAs.AWWiGoqJ; pl=n; presence=EDvF3EtimeF1519939640EuserFA21B01064064854A2EstateFDutF1519939640953CEchFDp_5f1B01064064854F2CC; act=1519939693689%2F2; wd=871x662'
+COOKIE='xxxx'
 
 # Insert the fb_dtsg parameter obtained from Form Data here.
-FB_DTSG='AQHAOAJZ5Lor:AQGJ2qbYJkjZ'
+FB_DTSG='xxxx'
 
 # Insert your image file path here    
-photo='amigos.jpg'
+photo='xxxx.jpg'
 
 #Open the image
 img=Image.open(photo)
