@@ -1,4 +1,3 @@
-import numpy as np
 import cv2
 i=0
 #cargamos la plantilla e inicializamos la webcam:
