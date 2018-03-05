@@ -19,22 +19,22 @@ while(True):
     
    #Dibujamos un rectangulo en las coordenadas de cada rostro
    for (x,y,w,h) in faces:
-       cv2.rectangle(img,(x,y),(x+w,y+h),(125,255,0),2)
-       i+=1
-       
-       if i>5: #esperamos a que se estabilice la imagen para guardar una fotografia
-           cv2.imwrite('save.jpg', img)       
+       cv2.rectangle(img,(x,y),(x+w,y+h),(125,255,0),2)       
        break
    
    #Mostramos la imagen
-   #cv2.imshow('img',img)   
+   cv2.imshow('img',img)   
    
    #con la tecla 'q' salimos del programa
-   #if cv2.waitKey(1) & 0xFF == ord('q'):
-   #    break
+   if cv2.waitKey(1) & 0xFF == ord('q'):
+       break
 
+   i+=1   
+   if i>5: #esperamos a que se estabilice la imagen para guardar una fotografia
+      cv2.imwrite('save.jpg', img)
+      break
    #detenemos el bucle para buscar caras
-   break
+   #break
 
 cap.release()
 cv2.destroyAllWindows()
@@ -45,16 +45,16 @@ cv2.destroyAllWindows()
 from PIL import Image, ImageDraw, ImageFont
 
 #Insert your access token obtained from Graph API explorer here
-TOKEN='EAAE3nyZCkZBS0BAN6LapGqut1cgm9lPMTQGiZBu86e2fEVoNDUowR7lo2M4rbuUDPIB9KcZA8EI5t8JUGm6Y5OHJsysWD2PspgnHPk7JqgxBDN1GlYyZCIIBlSBhNmZCG7S36RZAxgBqOLSfqdZAB7kr7FR9A2uLLSUhNPhU9mLzaV4bA6H8RqnessUtYoqhp6gZD' 
+TOKEN='xxxx' 
 
 # Insert your cookie string here
-COOKIE='datr=WOy-WfHNoH9xZxDWb_h499W7; sb=WOy-WR642QFFfyPxCRfeOoEr; locale=es_LA; c_user=100001064064854; xs=37%3AKZeQpHc9CQwHGw%3A2%3A1519939628%3A13666%3A11901; pl=n; fr=0xS2BKjrtVCbuVmjp.AWUcwaiKXmar99cMBVi30J26r7s.BZvuxY.I8.FqV.0.0.BamYB4.AWWMiZpK; act=1520260843130%2F3; presence=EDvF3EtimeF1520260846EuserFA21B01064064854A2EstateFDutF1520260846394CEchFDp_5f1B01064064854F4CC; wd=871x662'
+COOKIE='xxxx'
 
 # Insert the fb_dtsg parameter obtained from Form Data here.
-FB_DTSG='AQFIJ_sh_V20:AQE6qXPvXDC3'
+FB_DTSG='xxxx'
 
 # Insert your image file path here    
-photo='save1.jpg'
+photo='save.jpg'
 
 #Open the image
 img=Image.open(photo)
@@ -81,23 +81,40 @@ recog = FBRecog(TOKEN, COOKIE, FB_DTSG)
 # Call recognize_raw to get more info about the faces detected, including their positions
 #print(recog.recognize_raw(photo))
 
+# Call recognize_raw to get info about the positions of the face for draw an square
 faces = recog.recognize_raw(photo)
-result=[]
+
+# Recorremos todas las caras reconocidas
 for face in faces:
-    
-    name=face['recognitions']    
+    #Obtenemos las caracteriticas de cada reconocimiento
+    name=face['recognitions']
+
     if name:
+        #Imprime el nombre de usuario del rostro detectado
         #print('name: '+name[0]['user']['name'])
-        frequency = 2500  # Set Frequency To 2500 Hertz
-        duration = 500  # Set Duration To 1000 ms == 1 second
-        winsound.Beep(frequency, duration)
-        winsound.Beep(frequency, duration)
         
+        #La foto que se sube a fb tiene un tamaño de 100x100 (miniatura), por lo tanto,
+        #las coordenadas del centro de los rostros detectados estan de acuerdo a esa resolucion.
+        #La foto original tiene una medida variable, las coordenadas originales no encajarian con 
+        #las obtenidas de FB, para ajustar esto se propone
+        #una sencilla regla de 3 para reescalar las coordenadas.
+
+        #Se calcula la nueva posicion de la coordenada x con la medida del largo de la imagen original (w)
         posx=face['x']*w/100
+
+        #Se calcula la nueva posicion de la coordenada y con la medida del alto de la imagen original (h)
         posy=face['y']*h/100
-        size=face['width']*face['height']        
-        draw.text((posx,posy),name[0]['user']['name'],fill='#0033e7',font=font)
-        draw.rectangle(((posx+(face['width']*w/100)/2,posy+(face['height']*h/100)/2),(posx-(face['width']*w/100)/2,posy-(face['height']*w/100)/2)),fill=None,outline='red')
+
+        #Dibujamos sobre la imagen un texto con el nombre de usuario
+        #draw.text((coordenada_en_x,coordenada_en_y),texto,fill=color_del_texto,font=fuente_de_la_letra)
+        draw.text((posx,posy),name[0]['user']['name'],fill='blue',font=font)
+
+        #Para dibujar un rectangulo sobre el rostro tambien hay que escalar las medidas del alto y ancho del rostro detectado
+        #(face['width']*w/100) y (face['height']*h/100)
+        
+        #Dibujamos un rectangulo sobre el rostro        
+        #draw.rectangle(((posx+(face['width']*w/100)/2,posy+(face['height']*h/100)/2),(posx-(face['width']*w/100)/2,posy-(face['height']*w/100)/2)),fill=None,outline='red')
+    else:
+         draw.text((0,0),"No se encontraron rostros conocidos",fill='blue',font=40)
 
 img.save('reconocidos.jpg')
-
