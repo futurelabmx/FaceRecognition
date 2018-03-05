@@ -2,6 +2,8 @@
 #INICIO DE OPENCV PARA DETECCION FACIAL
 import cv2 #Libreria de opencv
 i=0
+flag=True
+
 #cargamos la plantilla e inicializamos la webcam:
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(0)
@@ -19,6 +21,7 @@ while(True):
     
    #Dibujamos un rectangulo en las coordenadas de cada rostro
    for (x,y,w,h) in faces:
+       i+=1
        cv2.rectangle(img,(x,y),(x+w,y+h),(125,255,0),2)       
        break
    
@@ -26,13 +29,12 @@ while(True):
    cv2.imshow('img',img)   
    
    #con la tecla 'q' salimos del programa
-   if cv2.waitKey(1) & 0xFF == ord('q'):
-       break
-
-   i+=1   
+   #if cv2.waitKey(1) & 0xFF == ord('q'):
+   #    break
+      
    if i>5: #esperamos a que se estabilice la imagen para guardar una fotografia
       cv2.imwrite('save.jpg', img)
-      break
+      flag=False      
    #detenemos el bucle para buscar caras
    #break
 
@@ -117,4 +119,4 @@ for face in faces:
     else:
          draw.text((0,0),"No se encontraron rostros conocidos",fill='blue',font=40)
 
-img.save('reconocidos.jpg')
+img.save('save.jpg')
