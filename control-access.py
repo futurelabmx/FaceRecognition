@@ -103,6 +103,7 @@ try:
        #Se calcula la nueva posicion de la coordenada y con la medida del alto de la imagen original (h)
        posy=face['y']*h/100
 
+      #si la cara reconocida tiene un nombre de usuario se dibuja su nombre de usuario
        if name:      
            #Imprime el nombre de usuario del rostro detectado
            print('name: '+name[0]['user']['name'])                  
@@ -116,6 +117,8 @@ try:
         
            #Dibujamos un rectangulo sobre el rostro        
            #draw.rectangle(((posx+(face['width']*w/100)/2,posy+(face['height']*h/100)/2),(posx-(face['width']*w/100)/2,posy-(face['height']*w/100)/2)),fill=None,outline='red')
+
+      #si no tiene un nombre de usuario entonces es un usuario desconocido
        else:
            draw.text((posx,posy),"usuario no reconocido",fill='blue',font=font)
           
