@@ -15,8 +15,8 @@ while(flag):
    #convertimos la imagen a blanco y negro
    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-   #buscamos las coordenadas de los rostros (si los hay) y
-   #guardamos su posicion
+   """buscamos las coordenadas de los rostros (si los hay) y
+   guardamos su posicion"""
    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     
    #Dibujamos un rectangulo en las coordenadas de cada rostro
@@ -68,7 +68,7 @@ draw=ImageDraw.Draw(img)
 
 #Configuramos los parametros de la fuente para poner el nombre de cada cara
 #ImageFont.truetype(FUENTE,TAMAÑO) 
-font=ImageFont.truetype('arial.ttf',20)
+font=ImageFont.truetype('arial.ttf',20) #Se recomienda la tipografía Sans serif
 
 w,h=img.size #Obtenemos las dimensiones de la foto para despues redimensionar las medidas obtenidas del wrapper
     
@@ -123,8 +123,8 @@ try:
            draw.text((posx,posy),"usuario no reconocido",fill='blue',font=font)
           
 except AttributeError:
-   print("verifique su coneccion a internet")
+   print("Por favor verifique su conexion a internet")
 except:
-   print("error inesperado, reintente")
+   print("Error inesperado, intentelo de nuevo")
 
 img.save('save.jpg')
