@@ -1,3 +1,7 @@
+from mpi4py import MPI
+
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
 
 #INICIO DE OPENCV PARA DETECCION FACIAL
 import cv2 #Libreria de opencv
@@ -127,4 +131,4 @@ except AttributeError:
 except:
    print("Error inesperado, intentelo de nuevo")
 
-img.save('save.jpg')
+img.save('save'+str(rank)+'.jpg')
