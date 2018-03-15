@@ -5,6 +5,7 @@ rank = comm.Get_rank()
 
 #INICIO DE OPENCV PARA DETECCION FACIAL
 import cv2 #Libreria de opencv
+import time
 i=0
 flag=True
 
@@ -36,30 +37,39 @@ while(flag):
    #if cv2.waitKey(1) & 0xFF == ord('q'):
    #    break
       
-   if i>5: #esperamos a que se estabilice o aparezca una cara visible en la imagen para guardar una fotografia
-      cv2.imwrite('save.jpg', img)
+   if rank==0: #esperamos a que se estabilice o aparezca una cara visible en la imagen para guardar una fotografia      
+      cv2.imwrite('save'+str(rank)+'.jpg', img)
+      time.sleep(1)
+   if rank==1:
+      cv2.imwrite('save'+str(rank)+'.jpg', img)
+      time.sleep(1)
+   if rank==2:
+      cv2.imwrite('save'+str(rank)+'.jpg', img)
+      time.sleep(1)
       #detenemos el bucle para buscar caras
-      flag=False         
+   flag=False         
 
 cap.release()
 cv2.destroyAllWindows()
-
 
 #INICIO DE FBRECOG PARA RECONOCIMIENTO FACIAL
 #An unofficial python wrapper for the Facebook face recognition endpoint
 from fbrecog import FBRecog
 
+#Clase con los datos para el wrapper de FB
+from credentials import credentials
+
 #Para dibujar rectangulos y nombres sobre las caras
 from PIL import Image, ImageDraw, ImageFont
 
 #Insert your access token obtained from Graph API explorer here
-TOKEN='xxxx' 
+TOKEN=credentials.Token
 
 # Insert your cookie string here
-COOKIE='xxxx'
+COOKIE=credentials.Cookie
 
 # Insert the fb_dtsg parameter obtained from Form Data here.
-FB_DTSG='xxxx'
+FB_DTSG=credentials.Fb_dstg
 
 # Insert your image file path here    
 photo='save.jpg'

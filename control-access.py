@@ -45,17 +45,20 @@ cv2.destroyAllWindows()
 #An unofficial python wrapper for the Facebook face recognition endpoint
 from fbrecog import FBRecog
 
+#Clase con los datos para el wrapper de FB
+from credentials import credentials
+
 #Para dibujar rectangulos y nombres sobre las caras
 from PIL import Image, ImageDraw, ImageFont
 
 #Insert your access token obtained from Graph API explorer here
-TOKEN='xxxx' 
+TOKEN=credentials.Token
 
 # Insert your cookie string here
-COOKIE='xxxx'
+COOKIE=credentials.Cookie
 
 # Insert the fb_dtsg parameter obtained from Form Data here.
-FB_DTSG='xxxx'
+FB_DTSG=credentials.Fb_dstg
 
 # Insert your image file path here    
 photo='save.jpg'
