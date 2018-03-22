@@ -14,20 +14,28 @@ face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(0)
 
 while(flag):
+   time.sleep(1)
+   if rank!=0:
+      time.sleep(0.2*rank)
+      cap = cv2.VideoCapture(0)
+      
+   
    #leemos un frame y lo guardamos
    ret, img = cap.read()
 
    #convertimos la imagen a blanco y negro
    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-   """buscamos las coordenadas de los rostros (si los hay) y
-   guardamos su posicion"""
+   #buscamos las coordenadas de los rostros (si los hay) y
+   #guardamos su posicion
    faces = face_cascade.detectMultiScale(gray, 1.3, 5)
     
    #Dibujamos un rectangulo en las coordenadas de cada rostro
    for (x,y,w,h) in faces:
        i+=1
-       cv2.rectangle(img,(x,y),(x+w,y+h),(125,255,0),2)       
+       cv2.rectangle(img,(x,y),(x+w,y+h),(125,255,0),2)
+       #detenemos el bucle cuando encuentra una cara
+       flag=False
        break
    
    #Mostramos la imagen
@@ -36,18 +44,10 @@ while(flag):
    #con la tecla 'q' salimos del programa
    #if cv2.waitKey(1) & 0xFF == ord('q'):
    #    break
-      
-   if rank==0: #esperamos a que se estabilice o aparezca una cara visible en la imagen para guardar una fotografia      
-      cv2.imwrite('save'+str(rank)+'.jpg', img)
-      time.sleep(1)
-   if rank==1:
-      cv2.imwrite('save'+str(rank)+'.jpg', img)
-      time.sleep(1)
-   if rank==2:
-      cv2.imwrite('save'+str(rank)+'.jpg', img)
-      time.sleep(1)
-      #detenemos el bucle para buscar caras
-   flag=False         
+   
+   #esperamos a que se estabilice o aparezca una cara visible en la imagen para guardar una fotografia      
+   cv2.imwrite('save'+str(rank)+'.jpg', img)    
+   
 
 cap.release()
 cv2.destroyAllWindows()
@@ -72,7 +72,7 @@ COOKIE=credentials.Cookie
 FB_DTSG=credentials.Fb_dstg
 
 # Insert your image file path here    
-photo='save.jpg'
+photo='save'+str(rank)+'.jpg'
 
 #Open the image
 img=Image.open(photo)
@@ -82,7 +82,7 @@ draw=ImageDraw.Draw(img)
 
 #Configuramos los parametros de la fuente para poner el nombre de cada cara
 #ImageFont.truetype(FUENTE,TAMAÑO) 
-font=ImageFont.truetype('arial.ttf',20) #Se recomienda la tipografía Sans serif
+font=ImageFont.truetype('arial.ttf',20)
 
 w,h=img.size #Obtenemos las dimensiones de la foto para despues redimensionar las medidas obtenidas del wrapper
     
@@ -117,8 +117,8 @@ try:
        #Se calcula la nueva posicion de la coordenada y con la medida del alto de la imagen original (h)
        posy=face['y']*h/100
 
-      #si la cara reconocida tiene un nombre de usuario se dibuja su nombre de usuario
-       if name:      
+       #si la cara reconocida tiene un nombre de usuario se dibuja su nombre de usuario
+       if name:
            #Imprime el nombre de usuario del rostro detectado
            print('name: '+name[0]['user']['name'])                  
 
@@ -132,13 +132,13 @@ try:
            #Dibujamos un rectangulo sobre el rostro        
            #draw.rectangle(((posx+(face['width']*w/100)/2,posy+(face['height']*h/100)/2),(posx-(face['width']*w/100)/2,posy-(face['height']*w/100)/2)),fill=None,outline='red')
 
-      #si no tiene un nombre de usuario entonces es un usuario desconocido
+       #si no tiene un nombre de usuario entonces es un usuario desconocido
        else:
            draw.text((posx,posy),"usuario no reconocido",fill='blue',font=font)
           
 except AttributeError:
-   print("Por favor verifique su conexion a internet")
+   print("verifique su coneccion a internet")
 except:
-   print("Error inesperado, intentelo de nuevo")
+   print("error inesperado, reintente")
 
 img.save('save'+str(rank)+'.jpg')
