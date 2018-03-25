@@ -14,14 +14,19 @@ face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 cap = cv2.VideoCapture(0)
 
 while(flag):
+   #Espera un segundo antes de comenzar un nuevo ciclo
    time.sleep(1)
+
+   #Si no es el procesador principal
    if rank!=0:
+      #Cerramos cualquier actividad de la camara
       cap.release()
       cv2.destroyAllWindows()
+
+      #Espera antes de tomar la siguiente captura de frames
       time.sleep(0.5*rank)
       cap = cv2.VideoCapture(0)
-      
-   
+         
    #leemos un frame y lo guardamos
    ret, img = cap.read()
 
@@ -48,9 +53,9 @@ while(flag):
    #    break
    
    #esperamos a que se estabilice o aparezca una cara visible en la imagen para guardar una fotografia      
-   cv2.imwrite('save'+str(rank)+'.jpg', img)    
-   
+   cv2.imwrite('save'+str(rank)+'.jpg', img)       
 
+#Cerramos la camara
 cap.release()
 cv2.destroyAllWindows()
 
@@ -86,7 +91,8 @@ draw=ImageDraw.Draw(img)
 #ImageFont.truetype(FUENTE,TAMAÑO) 
 font=ImageFont.truetype('arial.ttf',20)
 
-w,h=img.size #Obtenemos las dimensiones de la foto para despues redimensionar las medidas obtenidas del wrapper
+#Obtenemos las dimensiones de la foto para despues redimensionar las medidas obtenidas del wrapper
+w,h=img.size 
     
 # Instantiate the recog class
 recog = FBRecog(TOKEN, COOKIE, FB_DTSG)
@@ -101,6 +107,7 @@ recog = FBRecog(TOKEN, COOKIE, FB_DTSG)
 # Call recognize_raw to get info about the positions of the face for draw an square
 faces = recog.recognize_raw(photo)
 
+#Lista para agregar nombres de las personas reconocidas
 users=[]
 try:
 
@@ -125,6 +132,8 @@ try:
            
            #Imprime el nombre de usuario del rostro detectado
            #print('name: '+name[0]['user']['name'])
+
+           #Se añaden los nombres a una lista
            users.append(name[0]['user']['name'])
 
            #Dibujamos sobre la imagen un texto con el nombre de usuario
@@ -146,10 +155,12 @@ except AttributeError:
 except:
    print("error inesperado, reintente")
 
+#Se importa la lista de personas con acceso al laboratorio
 from listaPermitidos import flabianos
-
 flabs=flabianos()
+
+#Busca si los nombres de las personas reconocidas estan dentro de los que tienen acceso
 flabs.TuSiTuNo(users)
-    
+
 img.save('save'+str(rank)+'.jpg')
 
