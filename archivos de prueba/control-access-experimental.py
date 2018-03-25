@@ -16,7 +16,9 @@ cap = cv2.VideoCapture(0)
 while(flag):
    time.sleep(1)
    if rank!=0:
-      time.sleep(0.2*rank)
+      cap.release()
+      cv2.destroyAllWindows()
+      time.sleep(0.5*rank)
       cap = cv2.VideoCapture(0)
       
    
@@ -99,8 +101,9 @@ recog = FBRecog(TOKEN, COOKIE, FB_DTSG)
 # Call recognize_raw to get info about the positions of the face for draw an square
 faces = recog.recognize_raw(photo)
 
+users=[]
 try:
-   # Recorremos todas las caras reconocidas
+
    for face in faces:
        #Obtenemos las caracteriticas de cada reconocimiento
        name=face['recognitions']       
@@ -119,8 +122,10 @@ try:
 
        #si la cara reconocida tiene un nombre de usuario se dibuja su nombre de usuario
        if name:
+           
            #Imprime el nombre de usuario del rostro detectado
-           print('name: '+name[0]['user']['name'])                  
+           #print('name: '+name[0]['user']['name'])
+           users.append(name[0]['user']['name'])
 
            #Dibujamos sobre la imagen un texto con el nombre de usuario
            #draw.text((coordenada_en_x,coordenada_en_y),texto,fill=color_del_texto,font=fuente_de_la_letra)
@@ -137,8 +142,14 @@ try:
            draw.text((posx,posy),"usuario no reconocido",fill='blue',font=font)
           
 except AttributeError:
-   print("verifique su coneccion a internet")
+   print("verifique las credenciales")
 except:
    print("error inesperado, reintente")
 
+from listaPermitidos import flabianos
+
+flabs=flabianos()
+flabs.TuSiTuNo(users)
+    
 img.save('save'+str(rank)+'.jpg')
+
