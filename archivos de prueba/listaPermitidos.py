@@ -4,7 +4,9 @@ class flabianos:
     def __init__(self):
         self.Invitados=['Luis Sustaita','Ricardo Mirón Torres',
                'Aldo Fernando Olmeda','Paco López Ortiz','Oliver A. López',
-               'MD Diaz','Cristofer Nava','Miguel Aguirre','Polo A. Ruiz','Rodolfo Ferro','Christian Oveth Alba Cisneros']
+               'MD Diaz','Cristofer Nava','Miguel Aguirre','Polo A. Ruiz','Rodolfo Ferro',
+               'Juan Manuel Rocha',' Ernesto Ramírez de Sancristobal',
+               'Adolfo Ramírez de Sancristobal','Omar Jair Purata Funes']
 
     def TuSiTuNo(self,EllosSi):
         for person in EllosSi:
